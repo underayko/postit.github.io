@@ -15,7 +15,8 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: nis
+          MYSQL_PASSWORD: orin
           MYSQL_DATABASE: postit
         ports:
           - 3306:3306
@@ -40,7 +41,7 @@ jobs:
       - name: Build SvelteKit app
         run: npm run build
         env:
-          DATABASE_URL: mysql://root@127.0.0.1:3306/postit
+          DATABASE_URL: mysql://nis:orin@127.0.0.1:3306/postit
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
