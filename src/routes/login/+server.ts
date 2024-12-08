@@ -7,6 +7,7 @@ const db = await mysql.createConnection({
     user: 'your_db_user',
     password: '',
     database: 'postit',
+    port: 3306,
 });
 
 // Handle POST request (Login)
