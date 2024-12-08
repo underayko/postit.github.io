@@ -4,8 +4,8 @@ import mysql from 'mysql2/promise';
 // MySQL connection setup (make sure to adjust credentials)
 const db = await mysql.createConnection({
     host: '127.0.0.1',
-    user: 'your_db_user',
-    password: '',
+    user: 'nis',
+    password: 'orin',
     database: 'postit',
     port: 3306,
 });
