@@ -1,38 +1,39 @@
 import { json } from '@sveltejs/kit';
+import mysql from 'mysql2/promise';
 
-// Simulated user database
-const users = [
-    { username: 'user1', password: 'password1' },
-    { username: 'user2', password: 'password2' },
-];
-
-// Simulated session storage
-let session: { username: string } | null = null;
+// MySQL connection setup (make sure to adjust credentials)
+const db = await mysql.createConnection({
+    host: '127.0.0.1',
+    user: 'your_db_user',
+    password: '',
+    database: 'postit',
+});
 
 // Handle POST request (Login)
 export async function POST({ request }: { request: Request }) {
     const { username, password } = await request.json();
 
-    // Authenticate user
-    const user = users.find((u) => u.username === username && u.password === password);
-    if (user) {
-        session = { username }; // Set session
-        return json({ success: true, message: 'Login successful!' });
-    } else {
-        return json({ success: false, message: 'Invalid username or password.' }, { status: 401 });
+    try {
+        // Check if user exists and password matches
+        const [rows] = await db.execute(
+            'SELECT * FROM login WHERE username = ? AND password = ?',
+            [username, password]
+        );
+
+        if (rows.length > 0) {
+            // User found
+            return json({ success: true, message: 'Login successful!' });
+        } else {
+            return json({ success: false, message: 'Invalid username or password.' }, { status: 401 });
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        return json({ success: false, message: 'An error occurred. Please try again later.' }, { status: 500 });
     }
 }
 
 // Handle GET request (Check if user is authenticated)
 export async function GET() {
-    if (session) {
-        return json({ authenticated: true, username: session.username });
-    }
+    // You would typically check a session or token here
     return json({ authenticated: false });
-}
-
-// Handle DELETE request (Logout)
-export async function DELETE() {
-    session = null; // Clear session
-    return json({ success: true, message: 'Logged out successfully.' });
 }

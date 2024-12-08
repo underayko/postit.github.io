@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 
@@ -91,100 +91,5 @@
                 Log In
             </button>
         </form>
-    </div>
-</div> -->
-
-
-<script lang="ts">
-    import { goto } from '$app/navigation';
-
-    let isLogin = true; // Tracks whether the current mode is login or signup
-    let email = '';
-    let password = '';
-    let error = '';
-
-    // Simulated credentials
-    const validEmail = 'yzervincent@gmail.com';
-    const validPassword = '12345678';
-
-    // Function to toggle between Login and Sign Up modes
-    function toggleAuthMode() {
-        isLogin = !isLogin;
-        error = ''; // Clear errors when switching modes
-        email = '';
-        password = '';
-    }
-
-    function handleLogin(event: Event) {
-        event.preventDefault();
-
-        if (isLogin) {
-            // Login logic
-            if (email === validEmail && password === validPassword) {
-                alert('Login Successful!');
-                goto('/Blog'); // Redirect to the Blog page
-            } else {
-                error = 'Invalid email or password. Please try again.';
-            }
-        } else {
-            // Sign Up logic (placeholder for now)
-            alert('Account Created Successfully!');
-            goto('/Blog');
-        }
-    }
-</script>
-
-<div class="bg-[#161614] text-white min-h-screen flex justify-center items-center">
-    <div class="w-full max-w-md bg-[#22211f] p-8 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold text-center text-gray-200 mb-6">
-            {isLogin ? 'Login' : 'Sign Up'}
-        </h2>
-
-        {#if error}
-            <div class="text-red-500 mb-4">{error}</div>
-        {/if}
-
-        <form on:submit={handleLogin}>
-            <div class="mb-4">
-                <label for="email" class="block text-gray-200">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    bind:value={email}
-                    class="w-full px-4 py-2 bg-[#161614] border border-[#ececec] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    required
-                />
-            </div>
-
-            <div class="mb-6">
-                <label for="password" class="block text-gray-200">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    bind:value={password}
-                    class="w-full px-4 py-2 bg-[#161614] border border-[#ececec] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    required
-                />
-            </div>
-
-            <button
-                type="submit"
-                class="w-full bg-[#374254] text-white py-2 rounded-lg hover:bg-[#9fb8c2]"
-            >
-                {isLogin ? 'Log In' : 'Sign Up'}
-            </button>
-        </form>
-
-        <p class="text-center text-gray-400 mt-4">
-            {isLogin
-                ? "Don't have an account? "
-                : 'Already have an account? '}
-            <button
-                class="text-orange-500 hover:underline"
-                on:click={toggleAuthMode}
-            >
-                {isLogin ? 'Sign Up' : 'Log In'}
-            </button>
-        </p>
     </div>
 </div>
