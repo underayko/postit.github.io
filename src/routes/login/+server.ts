@@ -1,9 +1,9 @@
-import { json, error } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 
 // Simulating user data, in a real scenario, you'd fetch this from a database
 const users = [
   { username: 'user1', password: 'password1' }, // Example user
-  { username: 'admin', password: '1234' },
+  { username: 'user2', password: 'password2' },
 ];
 
 let session: { username: string } | null = null; // Simulate session storage
