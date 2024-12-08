@@ -6,23 +6,45 @@
     let password = '';
     let errorMessage = '';
     let successMessage = '';
+    
+    // Logout functionality
+    const logout = async () => {
+      try {
+        const response = await fetch('/login', { method: 'DELETE' }); // Assuming /login handles logout
+        const result = await response.json();
+    
+        if (response.ok && result.success) {
+          // Show success message for logout
+          successMessage = 'You have logged out successfully!';
+          setTimeout(() => {
+            goto('/'); // Redirect to the login page after logout
+          }, 2000);
+        } else {
+          errorMessage = 'An error occurred during logout.';
+        }
+      } catch (error) {
+        console.error('Logout failed:', error);
+        errorMessage = 'An error occurred. Please try again.';
+      }
+    };
   
     // Handle form submission for login
     const handleSubmit = async (event: Event) => {
       event.preventDefault();
       errorMessage = ''; // Clear previous errors
-  
+      successMessage = ''; // Clear any previous success messages
+    
       try {
         const response = await fetch('/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password }),
         });
-  
+    
         const result = await response.json();
-  
+    
         if (response.ok && result.success) {
-          successMessage = result.message;
+          successMessage = result.message || 'Login successful!';
           setTimeout(() => {
             goto('/Blog'); // Redirect to blog page after successful login
           }, 2000);
@@ -35,7 +57,7 @@
       }
     };
   
-    // Check if the user is already authenticated
+    // Check if the user is already authenticated on mount
     onMount(async () => {
       try {
         const response = await fetch('/login');

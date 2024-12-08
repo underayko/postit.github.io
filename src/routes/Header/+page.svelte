@@ -61,7 +61,7 @@
     <div class="flex-1 flex items-center justify-center">
       <button
         class="text-gray-800 font-bold" style="font-family: 'Raleway', serif;"
-        on:click={() => goto('{base}/newsfeed')}
+        on:click={() => goto('/newsfeed')}
       >
         Newsfeed
       </button>
@@ -90,7 +90,7 @@
         aria-label="Profile menu">
         <img src="{base}/pfp.jpg" alt="Profile" class="w-full h-full object-cover rounded-full" />
       </button>
-      <div class="absolute right-0 mt-3 w-40 bg-[#22211f] text-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-10">
+      <div class="absolute right-0 mt-3 w-40 bg-[#ffffff] text-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-10">
         <button 
           class="block w-full text-left p-2 hover:bg-gray-700"
           on:click={logout}>
@@ -101,31 +101,31 @@
   </nav>
   
   <!-- Sidebar Section (Hidden Initially) -->
-  <aside class={`fixed top-16 left-0 w-1/4 bg-[#22211f] p-6 space-y-6 rounded-lg shadow-lg max-h-screen overflow-y-auto transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-10`}>
+  <aside class={`fixed top-16 left-0 w-1/4 bg-[#ffffff] p-6 space-y-6 rounded-lg shadow-lg max-h-screen overflow-y-auto transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-10`}>
     <!-- Close Button for Sidebar -->
     <button 
-      class="absolute top-4 right-4 text-white text-2xl"
+      class="absolute top-4 right-4 text-black text-2xl"
       on:click={closeSidebar}>
       ×
     </button>
   
-    <h2 class="font-bold text-2xl text-gray-100">Authors you are friends with:</h2>
+    <h2 class="font-bold text-2xl text-black">Authors you are friends with:</h2>
     <div class="space-y-4">
       <!-- Friend List Section -->
       <!-- Friend 1 -->
       <div class="flex items-center space-x-3">
         <img src="{base}/charlotte.jpg" alt="Friend 1" class="w-12 h-12 rounded-full object-cover">
         <div>
-          <span class="text-lg text-gray-100">Charlotte Buslon</span>
-          <div class="text-sm text-gray-400">Friends since: 2024-03-10</div>
+          <span class="text-lg text-black">Charlotte Buslon</span>
+          <div class="text-sm text-black">Friends since: 2024-03-10</div>
         </div>
       </div>
       <!-- Friend 2 -->
       <div class="flex items-center space-x-3">
         <img src="{base}/jose.jpg" alt="Friend 2" class="w-12 h-12 rounded-full object-cover">
         <div>
-          <span class="text-lg text-gray-100">Jose Maniago</span>
-          <div class="text-sm text-gray-400">Joined on: 2024-02-22</div>
+          <span class="text-lg text-black0">Jose Maniago</span>
+          <div class="text-sm text-black">Joined on: 2024-02-22</div>
         </div>
       </div>
     </div>

@@ -125,6 +125,28 @@
         
   
         <div class={`border-t-2 mt-[75px] ${darkMode ? 'border-white' : 'border-black'}`}></div>
+
+
+
+        <!-- Landscape Image Section Above Friends -->
+<section class="p-6 mt-7">
+    <div class="relative mb-6">
+      <!-- Landscape Image -->
+      <img src="{base}/cover.jpg" alt="A beautiful landscape" class="w-full h-auto object-cover rounded-md" />
+      <!-- Caption -->
+      <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center text-gray-900">
+        <h3 class="text-2xl font-semibold">A Glimpse into Nature's Beauty</h3>
+      </div>
+    </div>
+    <!-- Paragraph Below Caption -->
+    <p class={darkMode ? 'text-center text-lg text-gray-300' : 'text-center text-lg text-black'}>
+        There's something magical about a sunset at the beach. The sky bursts into colors as the sun dips below the horizon, casting a golden glow across the water. It’s a moment of serenity that reminds me of the beauty in life’s fleeting moments.
+    </p>
+  </section>
+  
+  <!-- Divider Line Above Friends Section -->
+  <div class={`border-t-2 mt-[65px] ${darkMode ? 'border-white' : 'border-black'}`}></div>
+  
   
         <!-- Friends Section -->
         <section class="p-6">

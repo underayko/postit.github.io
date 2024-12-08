@@ -7,6 +7,39 @@
     const toggleFollow = () => {
       isAdded = !isAdded; // Toggle between add and cancel
     };
+
+
+
+    let isAdded1 = false; // Track whether the author is added or not
+  
+    const toggleFollow1 = () => {
+      isAdded1 = !isAdded1; // Toggle between add and cancel
+    };
+
+
+
+    let isAdded2 = false; // Track whether the author is added or not
+  
+    const toggleFollow2 = () => {
+      isAdded2 = !isAdded2; // Toggle between add and cancel
+    };
+
+
+
+    let isAdded3 = false; // Track whether the author is added or not
+  
+    const toggleFollow3 = () => {
+      isAdded3 = !isAdded3; // Toggle between add and cancel
+    };
+
+
+
+
+    let isAdded4 = false; // Track whether the author is added or not
+  
+    const toggleFollow4 = () => {
+      isAdded4 = !isAdded4; // Toggle between add and cancel
+    };
   </script>
   
   <Header /> <!-- Render the Header component -->
@@ -386,7 +419,12 @@
             <div class="text-sm text-gray-400">Top Author</div>
           </div>
         </div>
-        <button class="w-full py-2 bg-blue-500 text-white rounded-lg">Follow</button>
+        <button 
+    class={`w-full py-2 rounded-lg ${isAdded1 ? 'bg-red-500' : 'bg-blue-500'} text-white`}
+    on:click={toggleFollow1}
+  >
+    {isAdded1 ? 'Cancel' : 'Add'}
+  </button>
       </div>
   
       <!-- Top Author 3 -->
@@ -400,7 +438,12 @@
             <div class="text-sm text-gray-400">Top Author</div>
           </div>
         </div>
-        <button class="w-full py-2 bg-blue-500 text-white rounded-lg">Follow</button>
+        <button 
+    class={`w-full py-2 rounded-lg ${isAdded2 ? 'bg-red-500' : 'bg-blue-500'} text-white`}
+    on:click={toggleFollow2}
+  >
+    {isAdded2 ? 'Cancel' : 'Add'}
+  </button>
       </div>
   
       <!-- Top Author 4 -->
@@ -414,7 +457,12 @@
             <div class="text-sm text-gray-400">Top Author</div>
           </div>
         </div>
-        <button class="w-full py-2 bg-blue-500 text-white rounded-lg">Follow</button>
+        <button 
+    class={`w-full py-2 rounded-lg ${isAdded3 ? 'bg-red-500' : 'bg-blue-500'} text-white`}
+    on:click={toggleFollow3}
+  >
+    {isAdded3 ? 'Cancel' : 'Add'}
+  </button>
       </div>
   
       <!-- Top Author 5 -->
@@ -428,7 +476,12 @@
             <div class="text-sm text-gray-400">Top Author</div>
           </div>
         </div>
-        <button class="w-full py-2 bg-blue-500 text-white rounded-lg">Follow</button>
+        <button 
+    class={`w-full py-2 rounded-lg ${isAdded4 ? 'bg-red-500' : 'bg-blue-500'} text-white`}
+    on:click={toggleFollow4}
+  >
+    {isAdded4 ? 'Cancel' : 'Add'}
+  </button>
       </div>
   
       <!-- Advertisement 1 -->

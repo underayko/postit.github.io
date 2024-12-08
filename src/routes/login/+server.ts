@@ -38,3 +38,14 @@ export async function GET() {
     // You would typically check a session or token here
     return json({ authenticated: false });
 }
+
+export async function DELETE() {
+    try {
+        // Handle logout logic (e.g., clearing session, JWT, etc.)
+        // For now, we'll simulate logging out by sending a response.
+        return json({ success: true, message: 'Logout successful!' });
+    } catch (error) {
+        console.error('Logout failed:', error);
+        return json({ success: false, message: 'An error occurred while logging out.' }, { status: 500 });
+    }
+}
