@@ -1,4 +1,4 @@
-import { json, error } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 
 // Simulating user data, in a real scenario, you'd fetch this from a database
 const users = [
