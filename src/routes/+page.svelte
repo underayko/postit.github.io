@@ -10,6 +10,7 @@
     // Handle form submission for login
     const handleSubmit = async (event: Event) => {
       event.preventDefault();
+      errorMessage = ''; // Clear previous errors
   
       try {
         const response = await fetch('/login', {
@@ -23,12 +24,13 @@
         if (response.ok && result.success) {
           successMessage = result.message;
           setTimeout(() => {
-            goto('/Blog'); // Redirect to the blog page after successful login
+            goto('/Blog'); // Redirect to blog page after successful login
           }, 2000);
         } else {
-          errorMessage = result.message;
+          errorMessage = result.message || 'Invalid credentials.';
         }
       } catch (error) {
+        console.error('Login error:', error);
         errorMessage = 'An error occurred. Please try again.';
       }
     };
@@ -43,7 +45,7 @@
           goto('/Blog'); // Redirect if the user is already logged in
         }
       } catch (error) {
-        console.error('Failed to verify authentication:', error);
+        console.error('Authentication check failed:', error);
       }
     });
   </script>

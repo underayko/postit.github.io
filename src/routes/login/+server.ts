@@ -1,38 +1,53 @@
-import { json, error } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 
-// Simulating user data, in a real scenario, you'd fetch this from a database
+// Simulated user database
 const users = [
-  { username: 'user1', password: 'password1' }, // Example user
+  { username: 'user1', password: 'password1' },
   { username: 'user2', password: 'password2' },
 ];
 
-let session: { username: string } | null = null; // Simulate session storage
+// Simulated session storage
+let session: { username: string } | null = null;
 
 // Handle POST request (Login)
-export async function POST({ request }) {
+export async function POST({ request }: { request: Request }) {
   const { username, password } = await request.json();
 
-  // Simulate user authentication (check credentials)
-  const user = users.find((user) => user.username === username && user.password === password);
-
+  // Authenticate user
+  const user = users.find((u) => u.username === username && u.password === password);
   if (user) {
-    session = { username }; // Set session if authentication is successful
-    return json({ success: true, message: 'Login successful!' });
+    session = { username }; // Set session
+    return json(
+      { success: true, message: 'Login successful!' },
+      { headers: { 'Access-Control-Allow-Origin': '*' } }
+    );
   } else {
-    return json({ success: false, message: 'Invalid username or password.' });
+    return json(
+      { success: false, message: 'Invalid username or password.' },
+      { status: 401, headers: { 'Access-Control-Allow-Origin': '*' } }
+    );
   }
 }
 
 // Handle GET request (Check if the user is authenticated)
 export async function GET() {
   if (session) {
-    return json({ authenticated: true, username: session.username });
+    return json(
+      { authenticated: true, username: session.username },
+      { headers: { 'Access-Control-Allow-Origin': '*' } }
+    );
   }
-  return json({ authenticated: false });
+  return json(
+    { authenticated: false },
+    { headers: { 'Access-Control-Allow-Origin': '*' } }
+  );
 }
 
 // Handle DELETE request (Logout)
 export async function DELETE() {
-  session = null; // Clear the session to log out the user
-  return json({ success: true, message: 'Logged out successfully' });
+  session = null; // Clear session
+  return json(
+    { success: true, message: 'Logged out successfully.' },
+    { headers: { 'Access-Control-Allow-Origin': '*' } }
+  );
 }
