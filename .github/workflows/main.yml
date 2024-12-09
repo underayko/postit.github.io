@@ -15,13 +15,14 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
+          MYSQL_ROOT_PASSWORD: rootpassword  # Required root password
           MYSQL_USER: nis
           MYSQL_PASSWORD: orin
           MYSQL_DATABASE: postit
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 --silent"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
