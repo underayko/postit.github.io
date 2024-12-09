@@ -1,101 +1,200 @@
 <script lang="ts">
-    import Header from '../Header/+page.svelte';
-    import { base } from '$app/paths';
-  
-    let album = [
-      {
-        image: "isf.jpg",
-        title: "Cherished Fun with Faith, Iona, and Stephany",
-        caption: "A wonderful day filled with laughter and friendship!",
-      },
-      {
-        image: "jcj.jpg",
-        title: "Memorable Moments with High School Friends",
-        caption: "Reliving those golden days with my amazing classmates.",
-      },
-      {
-        image: "ae.jpg",
-        title: "Missing These Amazing People So Much!",
-        caption: "Can't wait to meet and create new memories with them again.",
-      },
-      {
-        text: "My Dearest Circle of Friends",
-        message: "They are my source of joy, comfort, and inspiration. I love each one of them dearly and cherish every moment we share. Here's to more memories together!",
-      },
-    ];
-  
-    let petAlbum = [
-      "mike.jpg",
-      "mike1.jpg",
-      "orin.jpg",
-      "orin1.jpeg",
-      "withorin.jpg",
-      "withorin1.jpg",
-    ];
-  
-    // Dark mode state
-    let darkMode = true;  // Default to dark mode
-  </script>
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-  
-    /* Custom Scrollbar */
-    .scrollable {
-      overflow-x: auto;
-      scroll-behavior: smooth;
-    }
-  
-    .scrollable::-webkit-scrollbar {
-      height: 8px; /* Vertical scrollbar thickness */
-    }
-  
-    .scrollable::-webkit-scrollbar-thumb {
-      background: #c0a4bc; /* Scrollbar thumb color */
-      border-radius: 10px;
-    }
-  
-    .scrollable::-webkit-scrollbar-track {
-      background: #2E2E2E; /* Track background */
-      border-radius: 10px;
-    }
-  
-    .scrollable::-webkit-scrollbar-button {
-      background: transparent;
-    }
-  
-    /* Dark mode background */
-    .dark-mode {
-      background-color: #161614;
-      color: white;
-    }
-  
-    /* Light mode background */
-    .light-mode {
-      background-color: white;
-      color: black;
-    }
-  </style>
-  
-  <Header />
-  
-  <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  </head>
-  
-  <div class={darkMode ? 'bg-[#161614] text-white min-h-screen' : 'bg-white text-black min-h-screen'}>
-    <div class="flex justify-center w-full">
+  import { onMount } from 'svelte';
+  import Header from '../Header/+page.svelte';
+  import { base } from '$app/paths';
+
+  let album = [
+    {
+      image: "isf.jpg",
+      title: "Cherished Fun with Faith, Iona, and Stephany",
+      caption: "A wonderful day filled with laughter and friendship!",
+    },
+    {
+      image: "jcj.jpg",
+      title: "Memorable Moments with High School Friends",
+      caption: "Reliving those golden days with my amazing classmates.",
+    },
+    {
+      image: "ae.jpg",
+      title: "Missing These Amazing People So Much!",
+      caption: "Can't wait to meet and create new memories with them again.",
+    },
+    {
+      text: "My Dearest Circle of Friends",
+      message: "They are my source of joy, comfort, and inspiration. I love each one of them dearly and cherish every moment we share. Here's to more memories together!",
+    },
+  ];
+
+  let petAlbum = [
+    "mike.jpg",
+    "mike1.jpg",
+    "orin.jpg",
+    "orin1.jpeg",
+    "withorin.jpg",
+    "withorin1.jpg",
+  ];
+
+  // Dark mode state
+  let darkMode = true;  // Default to dark mode
+
+  // Cover photo state
+  let coverPhoto = `${base}/hdcov.jpg`;
+
+  // Function to handle cover photo change
+  function handleCoverUpload(event: Event) {
+      const input = event.target as HTMLInputElement;
+      const file = input.files?.[0];
+      
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+              coverPhoto = e.target?.result as string;
+          };
+          reader.readAsDataURL(file);
+      }
+  }
+
+  // Reset cover photo on mount
+  onMount(() => {
+      coverPhoto = `${base}/hdcov.jpg`;
+  });
+
+
+  // Banner text state
+  let bannerText = '"The comfort of seeing flowers."';
+  let isEditing = false;
+  let editingText = bannerText;
+
+  // Reset function for banner text
+  onMount(() => {
+    bannerText = '"The comfort of seeing flowers."';
+  });
+
+  function handleSave() {
+    bannerText = editingText;
+    isEditing = false;
+  }
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+  /* Custom Scrollbar */
+  .scrollable {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+
+  .scrollable::-webkit-scrollbar {
+    height: 8px; /* Vertical scrollbar thickness */
+  }
+
+  .scrollable::-webkit-scrollbar-thumb {
+    background: #c0a4bc; /* Scrollbar thumb color */
+    border-radius: 10px;
+  }
+
+  .scrollable::-webkit-scrollbar-track {
+    background: #2E2E2E; /* Track background */
+    border-radius: 10px;
+  }
+
+  .scrollable::-webkit-scrollbar-button {
+    background: transparent;
+  }
+
+  /* Dark mode background */
+  .dark-mode {
+    background-color: #161614;
+    color: white;
+  }
+
+  /* Light mode background */
+  .light-mode {
+    background-color: white;
+    color: black;
+  }
+
+  /* Upload button styling */
+  .upload-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+</style>
+
+<Header />
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<div class={darkMode ? 'bg-[#161614] text-white min-h-screen' : 'bg-white text-black min-h-screen'}>
+  <div class="flex justify-center w-full">
       <!-- Main Section -->
       <div class="w-3/4 relative">
-        <!-- Cover Photo -->
-        <div class="relative w-full h-[500px] bg-gray-300 mb-8 mt-13 top-[55px] bg-transparent">
-          <img src="{base}/hdcov.jpg" alt="Cover photo of beautiful flowers" class="w-full h-full absolute top-[50px] left-0 object-cover" aria-hidden="true" />
-          <!-- Large Text Banner -->
-  <div class="absolute top-[595px] left-1/2 transform -translate-x-1/2 text-center w-full">
-    <h1 class={`text-4xl tracking-wider drop-shadow-md ${darkMode ? 'text-white' : 'text-black'}`} style="font-family: 'Raleway', serif;">
-      "The comfort of seeing flowers."
-    </h1>
-  </div>
+          <!-- Cover Photo -->
+          <div class="relative w-full h-[500px] bg-gray-300 mb-8 mt-13 top-[55px] bg-transparent">
+              <img src={coverPhoto} alt="Cover photo of beautiful flowers" class="w-full h-full absolute top-[50px] left-0 object-cover" aria-hidden="true" />
+              
+              <!-- Upload Button as Pencil Icon -->
+    <label class="absolute bottom-10 right-10 text-white cursor-pointer">
+      <input type="file" accept="image/*" on:change={handleCoverUpload} class="hidden" />
+      <i class="fas fa-edit text-xl"></i>
+  </label>
+
+             <!-- Large Text Banner -->
+<div class="absolute top-[595px] left-1/2 transform -translate-x-1/2 text-center w-full flex items-center justify-center">
+  {#if isEditing}
+    <div class="flex items-center space-x-2">
+      <input 
+        type="text" 
+        bind:value={editingText} 
+        class={`text-4xl tracking-wider drop-shadow-md text-center bg-transparent ${darkMode ? 'text-white' : 'text-black'}`} 
+        style="font-family: 'Raleway', serif;"
+      />
+      <button 
+        on:click={handleSave} 
+        class="bg-blue-500 text-white px-2 py-1 rounded"
+      >
+        Save
+      </button>
+      <button 
+        on:click={() => isEditing = false} 
+        class="bg-gray-500 text-white px-2 py-1 rounded"
+      >
+        Cancel
+      </button>
+    </div>
+  {:else}
+    <div class="flex items-center space-x-2">
+      <h1 
+        class={`text-4xl tracking-wider drop-shadow-md ${darkMode ? 'text-white' : 'text-black'}`} 
+        style="font-family: 'Raleway', serif;"
+      >
+        {bannerText}
+      </h1>
+      <button 
+        on:click={() => {
+          editingText = bannerText;
+          isEditing = true;
+        }}
+          class="text-gray-500 hover:text-gray-700"
+        aria-label="Edit banner text"
+      >
+        <i class="fas fa-edit text-lg"></i>
+      </button>
+    </div>
+  {/if}
+</div>
+
   
         </div>
   
